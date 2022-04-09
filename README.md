@@ -5,6 +5,7 @@ Multi-platform (iOS, Android, web) app for event hosts, volunteers, and particip
 ## Functionalities / Ideas
 ### General
 - [in progress] Flask app as backend to handle requests for database data.
+- [in progress] Basic navigation, drawer, etc.
 
 ### Hosts
 - [in progress] Login with username or schoolid and passcode

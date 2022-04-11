@@ -4,8 +4,8 @@ import 'package:tree_plenish_app/models/host_state.dart';
 import 'package:tree_plenish_app/ui/host/drawer.dart';
 
 
-class HostHomeScreen extends StatelessWidget {
-  const HostHomeScreen({Key? key}) : super(key: key);
+class HostAssignmentsScreen extends StatelessWidget {
+  const HostAssignmentsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,12 @@ class HostHomeScreen extends StatelessWidget {
           title: Text("${data.schoolid}")
         ),
         drawer: const HostDrawer(),
-        body: const Text("Host Home"),
+        body: ElevatedButton(
+          child: const Text("List"),
+          onPressed: () {
+            Navigator.pushNamed(context, "/host/list");
+          }
+        ),
       ),
     );
   }

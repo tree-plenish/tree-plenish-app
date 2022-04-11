@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tree_plenish_app/models/host_state.dart';
+import 'package:tree_plenish_app/ui/host/accessportal.dart';
+import 'package:tree_plenish_app/ui/host/home.dart';
+import 'package:tree_plenish_app/ui/host/list.dart';
 import 'package:tree_plenish_app/ui/host/login.dart';
+import 'package:tree_plenish_app/ui/host/assignments.dart';
+import 'package:tree_plenish_app/ui/host/eventpage.dart';
+import 'package:tree_plenish_app/ui/landing_screen.dart';
 
 void main() {
   runApp(const TreePlenishApp());
@@ -10,73 +18,28 @@ class TreePlenishApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.green,
-        ),
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Tree Plenish App"),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text("Choose your role:"),
-              const SizedBox(height: 20),
-              RoleButton(
-                buttonText: "Host",
-                buttonRoute: (_) => const HostLoginScreen(),
-              ),
-              const SizedBox(height: 20),
-              RoleButton(
-                buttonText: "Volunteer",
-                buttonRoute: (_) => const HostLoginScreen(),
-              ),
-              const SizedBox(height: 20),
-              RoleButton(
-                buttonText: "Participant",
-                buttonRoute: (_) => const HostLoginScreen(),
-              ),
-            ],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => HostStateModel()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: {
+          '/': (context) => const LandingScreen(),
+          '/host': (context) => const HostLoginScreen(),
+          '/host/home': (context) => const HostHomeScreen(),
+          '/host/list': (context) => const ListScreen(),
+          '/host/assignments': (context) => const HostAssignmentsScreen(),
+          '/host/eventpage': (context) => const EventPageScreen(),
+          '/host/accessportal': (context) => const AccessPortalScreen(),
+        },
+        initialRoute: '/',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.green,
           ),
         ),
       ),
-    );
-  }
-}
-
-class RoleButton extends StatelessWidget {
-  final String buttonText;
-  final Widget Function(BuildContext) buttonRoute;
-
-  const RoleButton({
-    Key? key,
-    required this.buttonText,
-    required this.buttonRoute,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: Container(
-        // height: 70,
-        width: 200,
-        alignment: Alignment.center,
-        child: Text(buttonText),
-      ),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: buttonRoute,
-          ),
-        );
-      },
     );
   }
 }

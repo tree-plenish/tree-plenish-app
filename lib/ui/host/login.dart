@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tree_plenish_app/ui/host/home.dart';
-import 'package:tree_plenish_app/models/host_data.dart';
-
+import 'package:provider/provider.dart';
+import 'package:tree_plenish_app/models/host_state.dart';
 
 class HostLoginScreen extends StatefulWidget {
   const HostLoginScreen({Key? key}) : super(key: key);
@@ -22,7 +21,6 @@ class _HostLoginScreenState extends State<HostLoginScreen> {
     passcodeController.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +43,16 @@ class _HostLoginScreenState extends State<HostLoginScreen> {
                   if (value == null || value.isEmpty || value.length < 4) {
                     return 'School ID must be 4 characters long.';
                   }
+                  if (int.tryParse(value) == null) {
+                    return 'School ID must be an integer';
+                  }
                   return null;
                 },
                 controller: schoolIdController,
               ),
               const SizedBox(height: 20),
               TextFormField(
+                obscureText: true,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Passcode',
@@ -74,15 +76,9 @@ class _HostLoginScreenState extends State<HostLoginScreen> {
                     //   SnackBar(content: Text(schoolIdController.text + " " + passcodeController.text)),
                     // );
                     // // navigate to next page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => HostHomeScreen(
-                          data: HostData(int.parse(schoolIdController.text), "School Name")
-                        ),
-                      ),
-                    );
-                    // Navigator.pushReplacementNamed(context, '/home');
+                    Provider.of<HostStateModel>(context, listen: false)
+                        .setSchoolId(int.parse(schoolIdController.text));
+                    Navigator.pushReplacementNamed(context, '/host/home');
                   }
                 },
               ),

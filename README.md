@@ -10,7 +10,7 @@ Multi-platform (iOS, Android, web) app for event hosts, volunteers, and particip
 ### Hosts
 - [in progress] Login with username or schoolid and passcode
 - Notifications for action items in preparation for event season
-- Access to event page, user access portal
+- [Done] Access to event page, user access portal automatically
 - Make volunteer group arrangements with assigned locations for tree-planting
     - Select volunteers and locations from list retrieved from database
     - Publish/unpublish assignments

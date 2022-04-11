@@ -22,30 +22,35 @@ class HostDrawer extends StatelessWidget {
             title: const Text('Home'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, '/host/home');
             },
           ),
           ListTile(
             title: const Text('Event Page'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, '/host/eventpage');
             },
           ),
           ListTile(
             title: const Text('Access Portal'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, '/host/accessportal');
             },
           ),
           ListTile(
             title: const Text('Event Day Assignments'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, '/host/assignments');
             },
           ),
           ListTile(
             title: const Text('Sign Out'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, '/');
             },
           ),
         ],

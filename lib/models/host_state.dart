@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class HostStateModel extends ChangeNotifier {
-  int schoolid = 1001;
+  int schoolid = 1000;
   String schoolname = '';
 
-  String password = '102973';
+  String password = '';
 
   // example
   final List<String> list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
@@ -14,6 +14,10 @@ class HostStateModel extends ChangeNotifier {
 
   void setSchoolId(int id) {
     schoolid = id;
+  }
+
+  void setPassword(String p) {
+    password = p;
   }
 
   void setSchoolName(String name) {

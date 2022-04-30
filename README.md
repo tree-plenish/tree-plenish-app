@@ -5,13 +5,13 @@ Multi-platform (iOS, Android, web) app for event hosts, volunteers, and particip
 ## Functionalities / Ideas
 ### General
 - [in progress] Flask app as backend to handle requests for database data.
-- [in progress] Basic navigation, drawer, etc.
+- [Done] Basic navigation, drawer, etc.
 
 ### Hosts
-- [in progress] Login with username or schoolid and passcode
+- [Done] Login with username or schoolid and passcode
 - Notifications for action items in preparation for event season
 - [Done] Access to event page, user access portal automatically
-- Make volunteer group arrangements with assigned locations for tree-planting
+- [in progress] Make volunteer group arrangements with assigned locations for tree-planting
     - Select volunteers and locations from list retrieved from database
     - Publish/unpublish assignments
 

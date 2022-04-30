@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tree_plenish_app/models/host_state.dart';
+import 'package:http/http.dart' as http;
+
+Future<String> verifyLogin(schoolid, password) async {
+  final response = await http.get(
+      Uri.parse('http://127.0.0.1:5000/data?name=verify&schoolid=$schoolid&password=$password'));
+  if (response.statusCode == 200) {
+    return response.body;
+  } else {
+    throw Exception('Failed to verify login');
+  }
+}
+
 
 class HostLoginScreen extends StatefulWidget {
   const HostLoginScreen({Key? key}) : super(key: key);
@@ -61,6 +73,9 @@ class _HostLoginScreenState extends State<HostLoginScreen> {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a passcode.';
                   }
+                  if (int.tryParse(value) == null) {
+                    return 'Passcode must be an integer';
+                  }
                   return null;
                 },
                 controller: passcodeController,
@@ -68,17 +83,27 @@ class _HostLoginScreenState extends State<HostLoginScreen> {
               const SizedBox(height: 20),
               ElevatedButton(
                 child: const Text("Login"),
-                onPressed: () {
+                onPressed: () async {
                   // Validate returns true if the form is valid, or false otherwise.
                   if (formKey.currentState!.validate()) {
-                    // check with database to get school data
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(content: Text(schoolIdController.text + " " + passcodeController.text)),
-                    // );
-                    // // navigate to next page
-                    Provider.of<HostStateModel>(context, listen: false)
-                        .setSchoolId(int.parse(schoolIdController.text));
-                    Navigator.pushReplacementNamed(context, '/host/home');
+                    // check with database
+                    dynamic valid = await verifyLogin(
+                      schoolIdController.text,
+                      passcodeController.text,
+                    );
+                    
+                    if (valid == 'True') {
+                      // navigate to next page
+                      Provider.of<HostStateModel>(context, listen: false)
+                          .setSchoolId(int.parse(schoolIdController.text));
+                      Provider.of<HostStateModel>(context, listen: false)
+                          .setPassword(passcodeController.text);
+                      Navigator.pushReplacementNamed(context, '/host/home');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Username or password incorrect")),
+                      );
+                    }
                   }
                 },
               ),
